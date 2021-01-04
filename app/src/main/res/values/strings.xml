@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Asteroid Radar</string>
+    <!-- Overview Fragment Picture of the Day Strings   -->
+    <string name="image_of_the_day">NASA\'s Image of the Day</string>
+    <string name="pod_content_description_format">NASA\'s Image of the Day: %s</string>
+    <string name="pod_blank">Blank</string>
+    <!-- Overview Fragment Internet Error Strings   -->
+    <string name="no_connection">No Internet Connection Available!</string>
+    <!-- Overview Fragment Menu Strings   -->
+    <string name="next_week_asteroids">View week asteroids</string>
+    <string name="today_asteroids">View today asteroids</string>
+    <string name="saved_asteroids">View saved asteroids</string>
+    <!-- Detail Fragment Title Strings   -->
+    <string name="close_approach_data_title">Close approach date</string>
+    <string name="absolute_magnitude_title">Absolute magnitude</string>
+    <string name="estimated_diameter_title">Estimated diameter</string>
+    <string name="relative_velocity_title">Relative velocity</string>
+    <string name="distance_from_earth_title">Distance from earth</string>
+    <!-- Detail Fragment Unit Strings   -->
+    <string name="astronomical_unit_format">%f au</string>
+    <string name="km_unit_format">%f km</string>
+    <string name="km_s_unit_format">%f km/s</string>
+    <!-- Detail Fragment Hazardous Strings   -->
+    <string name="hazardous_content_description">Asteroid potential hazardous image</string>
+    <string name="safe_content_description">Asteroid non hazardous image</string>
+    <!-- Detail Fragment AU Explanation Strings   -->
+    <string name="astronomical_unit_explanation">The astronomical unit (au) is a unit of length, roughly the distance from Earth to the Sun and equal to about 150 million kilometres (93 million miles)</string>
+    <!-- List Item Neo Strings   -->
+    <string name="asteroid_status">Asteroid Status Image</string>
+    <string name="pod_error">Not An Image File</string>
+
+</resources>
