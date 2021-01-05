@@ -20,13 +20,13 @@ fun bindPodImage(imageView: ImageView, picture: PictureOfTheDay?) {
                     .load(imgUri)
                     .apply(RequestOptions()
                             .placeholder(R.drawable.loading_animation)
-                            .error(R.drawable.ic_broken_image))
+                            .error(R.drawable.something_went_wrong))
                     .into(imageView)
 
             imageView.contentDescription = picture.title
         }
     } else {
-        imageView.setImageResource(R.drawable.ic_broken_image)
+        imageView.setImageResource(R.drawable.something_went_wrong)
         imageView.contentDescription = imageView.context.getString(R.string.pod_error)
     }
 }
