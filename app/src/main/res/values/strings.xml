@@ -21,12 +21,15 @@
     <string name="km_unit_format">%f km</string>
     <string name="km_s_unit_format">%f km/s</string>
     <!-- Detail Fragment Hazardous Strings   -->
+    <string name="potential_content_description">Tells whether the asteroid is potentially hazardous or safe image</string>
     <string name="hazardous_content_description">Asteroid potential hazardous image</string>
     <string name="safe_content_description">Asteroid non hazardous image</string>
     <!-- Detail Fragment AU Explanation Strings   -->
+    <string name="astronomical_unit_help">"Gives an explanation of an astronomical unit "</string>
     <string name="astronomical_unit_explanation">The astronomical unit (au) is a unit of length, roughly the distance from Earth to the Sun and equal to about 150 million kilometres (93 million miles)</string>
     <!-- List Item Neo Strings   -->
     <string name="asteroid_status">Asteroid Status Image</string>
     <string name="pod_error">Not An Image File</string>
+    <string name="status_loading_wheel">Displays the status of the loading process</string>
 
 </resources>

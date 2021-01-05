@@ -2,6 +2,7 @@ package com.example.udacity_project_two.api
 
 import android.content.Context
 import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import com.example.udacity_project_two.Asteroid
 import com.example.udacity_project_two.Constants
 import org.json.JSONObject
@@ -60,10 +61,11 @@ private fun getNextSevenDaysFormattedDates(): ArrayList<String> {
 
 //Check to see if a network connection is available
 fun isNetworkAvailable(context: Context): Boolean {
-    val connectivityManager =
-        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    val activeNetwork: NetworkInfo? = connectivityManager.activeNetworkInfo
+    val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
 
-    return connectivityManager.isDefaultNetworkActive
+    return (isConnected && !connectivityManager.isActiveNetworkMetered)
 }
 
 //Get a string of today's dat using API_QUERY_DATE_FORMAT

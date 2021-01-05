@@ -30,20 +30,19 @@ class OverviewFragment : Fragment() {
         return binding.root
     }
 
-    @SuppressLint("UseRequireInsteadOfGet")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         neo_recycler.visibility = View.GONE
         status_loading_wheel.visibility = View.VISIBLE
 
-        getAsteroids()
-        //viewModel.refreshDisplay()
+        //getAsteroids()
 
-        val asteroidAdapter = RecyclerAdapter(context!!) {
+        val asteroidAdapter = RecyclerAdapter(requireContext()) {
             val actionShowDetail = OverviewFragmentDirections.actionShowDetail(it)
             findNavController().navigate(actionShowDetail)
         }
 
         neo_recycler.adapter = asteroidAdapter
+
         viewModel.displayList.observe(viewLifecycleOwner, Observer {
             if (it.isNotEmpty()) {
                 asteroidAdapter.setAsteroidList(it)

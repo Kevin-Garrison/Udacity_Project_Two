@@ -23,7 +23,7 @@
 
             <ImageView
                 android:id="@+id/picture_of_the_day"
-                app:itemUrl="@{viewModel.pictureOfTheDay}"
+                app:imageUrl="@{viewModel.pictureOfTheDay}"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
@@ -64,6 +64,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:contentDescription="@string/status_loading_wheel"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

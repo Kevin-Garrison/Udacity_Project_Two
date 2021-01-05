@@ -4,73 +4,53 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.core.net.toUri
 import androidx.databinding.BindingAdapter
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.udacity_project_two.R
-import com.squareup.picasso.Picasso
 
-@BindingAdapter("itemUrl")
+//Bind the Picture of the Day and its content description in the overview
+@BindingAdapter("imageUrl")
 fun bindPodImage(imageView: ImageView, picture: PictureOfTheDay?) {
     if (picture?.mediaType == "image") {
-        val imgURI = picture.url.toUri().buildUpon().scheme("https").build()
-        Picasso.get().load(imgURI)
-            .placeholder(R.drawable.loading_animation)
-            .error(R.drawable.ic_broken_image)
-            .into(imageView)
-        imageView.contentDescription = picture.title
-    } else if(picture?.mediaType == "video") {
-        imageView.setImageResource(R.drawable.ic_play_arrow)
-        val context = imageView.context
-        imageView.contentDescription = context.getString(R.string.pod_error)
+        val url = picture.url
+        url.let {
+            //use Glide to download the image display it in imgView
+            val imgUri = url.toUri().buildUpon().scheme("https").build()
+            Glide.with(imageView.context)
+                    .load(imgUri)
+                    .apply(RequestOptions()
+                            .placeholder(R.drawable.loading_animation)
+                            .error(R.drawable.ic_broken_image))
+                    .into(imageView)
+
+            imageView.contentDescription = picture.title
+        }
+    } else {
+        imageView.setImageResource(R.drawable.ic_broken_image)
+        imageView.contentDescription = imageView.context.getString(R.string.pod_error)
     }
 }
 
-@BindingAdapter("imageUrl")
-fun loadPictureOfTheDay(imageView: ImageView, url: String?) {
-    url?.let {
-        Picasso.get().load(it)
-            .error(R.drawable.ic_broken_image)//placeholder_picture_of_day)
-            .into(imageView)
+//Bind the status icon and its content description in the list item
+@BindingAdapter("statusIcon")
+fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
+    if (isHazardous) {
+        imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
+        imageView.contentDescription = imageView.context.getString(R.string.hazardous_content_description)
+    } else {
+        imageView.setImageResource(R.drawable.ic_status_normal)
+        imageView.contentDescription = imageView.context.getString(R.string.safe_content_description)
     }
 }
 
+//Bind the asteroid name in the list item
 @BindingAdapter("asteroidName")
 fun bindAsteroidName(textView: TextView, name: String) {
     textView.text = name
 }
 
+//Bind the asteroid date in the list item
 @BindingAdapter("asteroidDate")
 fun bindAsteroidDate(textView: TextView, date: String) {
     textView.text = date
-}
-
-@BindingAdapter("asteroidStatusImage")
-fun bindDetailsStatusImage(imageView: ImageView, isHazardous: Boolean) {
-    if (isHazardous) {
-        imageView.setImageResource(R.drawable.asteroid_hazardous)
-        imageView.contentDescription = imageView.context.getString(R.string.hazardous_content_description)
-    } else {
-        imageView.setImageResource(R.drawable.asteroid_safe)
-        imageView.contentDescription = imageView.context.getString(R.string.safe_content_description)
-    }
-}
-
-@BindingAdapter("podDescription")
-fun bindPictureDescription(imageView: ImageView, picture: PictureOfTheDay?) {
-    if (null != picture) {
-        imageView.contentDescription =
-            imageView.context.getString(
-                R.string.pod_content_description_format, picture.title
-            )
-    } else {
-        imageView.contentDescription =
-            imageView.context.getString(R.string.pod_blank)
-    }
-}
-
-@BindingAdapter("statusIcon")
-fun bindAsteroidStatusImage(imageView: ImageView, isHazardous: Boolean) {
-    if (isHazardous) {
-        imageView.setImageResource(R.drawable.ic_status_potentially_hazardous)
-    } else {
-        imageView.setImageResource(R.drawable.ic_status_normal)
-    }
 }

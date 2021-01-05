@@ -60,34 +60,3 @@ abstract class AsteroidDatabase : RoomDatabase() {
         }
     }
 }
-
-//Create an abstract VideosDatabase class that extends RoomDatabase, and
-//annotate it with @Database, including entities and version
-//@Database(entities = [Asteroid::class], version = 1, exportSchema = false)
-//abstract class AsteroidDatabase : RoomDatabase() {
-//
-//    //add an abstract videoDao variable
-//    abstract val asteroidDao: AsteroidDao
-//}
-//
-////define an INSTANCE variable to store the singleton
-//private lateinit var INSTANCE: AsteroidDatabase
-//
-////Define a getDatabase() function to return the VideosDatabase
-//fun getDatabase(context: Context): AsteroidDatabase {
-//
-//    //Make sure your code is synchronized so itâ€™s thread safe
-//    //Wrap the if-statement
-//    synchronized(AsteroidDatabase::class.java) {
-//
-//        //use ::INSTANCE.isInitialized to check if the variable has been initialized.
-//        //If it hasn't, then initialize it
-//        if (!::INSTANCE.isInitialized) {
-//
-//            INSTANCE = Room.databaseBuilder(context.applicationContext,
-//                AsteroidDatabase::class.java,
-//                DATABASE_NAME).build()
-//        }
-//    }
-//    return INSTANCE
-//}

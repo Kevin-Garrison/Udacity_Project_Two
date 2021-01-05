@@ -27,8 +27,7 @@ class RefreshDataWorker(private val context: Context, workerParameters: WorkerPa
         }
     }
 
-    //Create a unique identifier for your work
-    //create a companion object and define a work name that can be used to uniquely identify this worker
+   //create a companion object and define a work name that can be used to uniquely identify this worker
     companion object {
         const val WORK_NAME = "RefreshDataWorker"
     }

@@ -1,8 +1,6 @@
 package com.example.udacity_project_two.overview
 
-import android.annotation.SuppressLint
 import android.app.Application
-import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
@@ -16,12 +14,8 @@ import com.example.udacity_project_two.api.isNetworkAvailable
 import com.example.udacity_project_two.database.AsteroidDatabase
 import com.example.udacity_project_two.reposistory.AsteroidRepository
 import kotlinx.coroutines.launch
-import org.json.JSONException
-import retrofit2.HttpException
 import timber.log.Timber
-import java.net.SocketTimeoutException
 
-@SuppressLint("LogNotTimber")
 class OverviewViewModel(application: Application) : AndroidViewModel(application)  {
 
     //Create a database object
@@ -34,38 +28,41 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
     //Create a LiveData List of Asteroids
     private val _displayList: MutableLiveData<List<Asteroid>> = MutableLiveData()
     val displayList: LiveData<List<Asteroid>> = _displayList
+    //Create a Boolean to see if there is a internet connection
+    private val internetConnected = isNetworkAvailable(application)
 
     //Check to see if there is internet. Set _pictureOfTheDay and get data if there is
     init {
-        if (isNetworkAvailable(application)) {
-            viewModelScope.launch {
-                val asteroids = repository.getAllAsteroids()
-                if (asteroids.isEmpty()) {
-                    Log.i("OverviewViewModel:", "asteroids.isEmpty()")
+        viewModelScope.launch {
+
+            val asteroids = repository.getAllAsteroids()
+
+            if (asteroids.isEmpty()) {
+                Timber.i("asteroids is empty")
+
+                if (internetConnected) {
+                    Timber.i("isNetworkAvailable true")
                     updateData()
                 } else {
+                    Timber.i("isNetworkAvailable false")
                     loadAsteroidList(asteroids)
                 }
-                setPictureOfTheDay()
+            } else {
+                Timber.i("asteroids is not empty")
+                loadAsteroidList(asteroids)
+
+                Toast.makeText(
+                    application, application.getString(
+                        R.string.no_connection
+                    ), Toast.LENGTH_SHORT
+                ).show()
             }
-        } else {
-            Toast.makeText(
-                application, application.getString(
-                    R.string.no_connection
-                ), Toast.LENGTH_SHORT
-            ).show()
+            setPictureOfTheDay()
         }
     }
 
-    fun refreshDisplay() {
-        Log.i("OverviewViewModel:", "refreshDisplay() called")
-        viewModelScope.launch {
-            loadAsteroidList(repository.getAllAsteroids())
-        }
-    }
-
-    suspend fun updateData() {
-        Log.i("OverviewViewModel:", "updateData() called")
+    private suspend fun updateData() {
+        Timber.i("updateData() called")
         try {
             repository.downloadFromInternet(getTodaysDateString())
         } catch (e: Exception) {
@@ -74,35 +71,37 @@ class OverviewViewModel(application: Application) : AndroidViewModel(application
         loadAsteroidList(repository.getAllAsteroids())
     }
 
-    suspend fun setPictureOfTheDay() {
-        Log.i("OverviewViewModel:", "setPictureOfTheDay() called")
+    private suspend fun setPictureOfTheDay() {
+        Timber.i("setPictureOfTheDay() called")
 
-        val response = getRetrofitBuilder().getPictureOfTheDay()
-        if (response.isSuccessful) {
-            response.body()?.let {
-                _pictureOfTheDay.value = it
-                Log.i("OverviewViewModel:", "Mediatype =  ${it.mediaType}")
+        if (internetConnected) {
+            val response = getRetrofitBuilder().getPictureOfTheDay()
+            if (response.isSuccessful) {
+                response.body()?.let {
+                    _pictureOfTheDay.value = it
+                    Timber.i("Mediatype =  ${it.mediaType}")
+                }
             }
         }
     }
 
     fun loadWeeksAsteroids(): LiveData<List<Asteroid>> {
-        Log.i("OverviewViewModel:", "loadWeeksAsteroids() called")
+        Timber.i("loadWeeksAsteroids() called")
         return repository.getWeeksAsteroids(getTodaysDateString())
     }
 
     fun loadTodaysAsteroids(): LiveData<List<Asteroid>> {
-        Log.i("OverviewViewModel:", "loadTodaysAsteroids() called")
+        Timber.i("loadTodaysAsteroids() called")
         return repository.getTodaysAsteroids(getTodaysDateString())
     }
 
     fun loadSavedAsteroids(): LiveData<List<Asteroid>> {
-        Log.i("OverviewViewModel:", "loadSavedAsteroids() called")
+        Timber.i("loadSavedAsteroids() called")
         return repository.getSavedAsteroids()
     }
 
     fun loadAsteroidList(asteroidList: List<Asteroid>) {
         _displayList.value = asteroidList
-        Log.i("OverviewViewModel:", "loadAsteroidList() called")
+        Timber.i("loadAsteroidList() called")
     }
 }

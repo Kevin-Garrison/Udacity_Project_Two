@@ -6,7 +6,6 @@ object Constants {
     const val BASE_URL = "https://api.nasa.gov/"
     const val SUB_URL = "neo/rest/v1/feed"
     const val API_KEY = "VqCfdyeeRdqG3erlfozsvgzR6DkdhOxWvodhh2VP"
-    const val WORK_TAG = "WORK_TAG_SYNC_ASTEROIDS"
     const val DATABASE_NAME = "asteroid_database"
     const val POD_SUB_URL = "planetary/apod"
 }
