@@ -5,7 +5,7 @@ object Constants {
     const val DEFAULT_END_DATE_DAYS = 7
     const val BASE_URL = "https://api.nasa.gov/"
     const val SUB_URL = "neo/rest/v1/feed"
-    const val API_KEY = "VqCfdyeeRdqG3erlfozsvgzR6DkdhOxWvodhh2VP"
+    const val API_KEY = "123456"
     const val DATABASE_NAME = "asteroid_database"
     const val POD_SUB_URL = "planetary/apod"
 }
